@@ -1,9 +1,11 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
-const stuffRoutes = require('./routes/stuff')
+const path = require('path')
+const booksRoutes = require('./routes/books')
 const userRoutes = require('./routes/user')
 
-mongoose.connect('mongodb+srv://wojskililian:2wVXYhHV8uLEf0kg@p6-grimoire.ke6qg.mongodb.net/?retryWrites=true&w=majority&appName=P6-GRIMOIRE')
+mongoose.connect(`mongodb+srv://${process.env.MONGOOSE_USERNAME}:${process.env.MONGOOSE_PASSWORD}@${process.env.MONGOOSE_URL}/?retryWrites=true&w=majority&appName=${process.env.MONGOOSE_DB_NAME}`)
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch((error) => {
         console.log('Connexion à MongoDB échouée !');
@@ -21,7 +23,8 @@ app.use((req, res, next) => {
 
 app.use(express.json())
 
-app.use('/api/stuff', stuffRoutes)
+app.use('/api/books', booksRoutes)
 app.use('/api/auth', userRoutes)
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 module.exports = app
