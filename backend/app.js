@@ -8,9 +8,9 @@ const userRoutes = require('./routes/user')
 mongoose.connect(`mongodb+srv://${process.env.MONGOOSE_USERNAME}:${process.env.MONGOOSE_PASSWORD}@${process.env.MONGOOSE_URL}/?retryWrites=true&w=majority&appName=${process.env.MONGOOSE_DB_NAME}`)
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch((error) => {
-        console.log('Connexion à MongoDB échouée !');
-        console.error('Détails de l\'erreur :', error);
-});
+        console.log('Connexion à MongoDB échouée !')
+        console.error('Détails de l\'erreur :', error)
+})
 
 const app = express()
 
