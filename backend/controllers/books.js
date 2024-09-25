@@ -84,7 +84,10 @@ exports.ratingBook = (req, res, next) => {
 
       const totalRatings = book.ratings.length
       const sumRatings = book.ratings.reduce((sum, rating) => sum + rating.grade, 0)
-      book.averageRating = sumRatings / totalRatings
+      const averageRating = sumRatings / totalRatings
+      const roundedAverageRating = parseFloat(averageRating.toFixed(1))
+      
+      book.averageRating = roundedAverageRating
 
       return book.save()
     })
