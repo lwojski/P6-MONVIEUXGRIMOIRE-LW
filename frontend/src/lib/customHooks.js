@@ -21,17 +21,18 @@ export function useUser() {
 }
 
 export function useBestRatedBooks() {
-  const [bestRatedBooks, setBestRatedBooks] = useState({});
+  const [bestRatedBooks, setBestRatedBooks] = useState([]);
+
+  const refreshBestRatedBooks = async () => {
+    const books = await getBestRatedBooks();
+    setBestRatedBooks(books);
+  };
 
   useEffect(() => {
-    async function getRatedBooks() {
-      const books = await getBestRatedBooks();
-      setBestRatedBooks(books);
-    }
-    getRatedBooks();
+    refreshBestRatedBooks();
   }, []);
 
-  return { bestRatedBooks };
+  return { bestRatedBooks, refreshBestRatedBooks };
 }
 
 export function useFilePreview(file) {

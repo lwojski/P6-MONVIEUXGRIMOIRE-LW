@@ -17,8 +17,13 @@ function Book() {
   const [rating, setRating] = useState(0);
   const [userRated, setUserRated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [refreshTrigger, setRefreshTrigger] = useState(false);
 
   const params = useParams();
+
+  const refreshBestRatedBooks = () => {
+    setRefreshTrigger((prev) => !prev);
+  };
 
   useEffect(() => {
     async function getItem() {
@@ -87,11 +92,12 @@ function Book() {
             setRating={setRating}
             setBook={setBook}
             id={book.id}
+            refreshBestRatedBooks={refreshBestRatedBooks}
           />
         </div>
       </div>
       <hr />
-      <BestRatedBooks />
+      <BestRatedBooks refreshTrigger={refreshTrigger} />
     </div>
   ) : null;
   const deletedContent = book?.delete ? (

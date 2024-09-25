@@ -9,7 +9,7 @@ import { useUser } from '../../../lib/customHooks';
 import { rateBook } from '../../../lib/common';
 
 function BookRatingForm({
-  rating, setRating, userId, setBook, id, userRated,
+  rating, setRating, userId, setBook, id, userRated, refreshBestRatedBooks
 }) {
   const { connectedUser, auth } = useUser();
   const navigate = useNavigate();
@@ -35,6 +35,9 @@ function BookRatingForm({
     if (update) {
       // eslint-disable-next-line no-underscore-dangle
       setBook({ ...update, id: update._id });
+      if (refreshBestRatedBooks) {
+        refreshBestRatedBooks();
+      }
     } else {
       alert(update);
     }

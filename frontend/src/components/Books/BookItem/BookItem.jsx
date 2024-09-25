@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { displayStars } from '../../../lib/functions';
 import styles from './BookItem.module.css';
 
-function BookItem({ book, size }) {
+function BookItem({ book, size, refreshBestRatedBooks }) {
   let title;
   switch (size) {
     case 2:
@@ -18,7 +18,7 @@ function BookItem({ book, size }) {
       break;
   }
   return (
-    <Link to={`/livre/${book.id}`} className={styles.BookItem}>
+    <Link to={`/livre/${book.id}`} className={styles.BookItem} state={{ refreshBestRatedBooks }}>
       <article>
         <img className={styles.BookImage} src={book.imageUrl} alt={`${book.title}, ${book.author} - ${book.year}`} />
         <div className={styles.BookInfo}>
@@ -51,5 +51,11 @@ BookItem.propTypes = {
     })),
     averageRating: PropTypes.number,
   }).isRequired,
+  refreshBestRatedBooks: PropTypes.func,
 };
+
+BookItem.defaultProps = {
+  refreshBestRatedBooks: null,
+};
+
 export default BookItem;

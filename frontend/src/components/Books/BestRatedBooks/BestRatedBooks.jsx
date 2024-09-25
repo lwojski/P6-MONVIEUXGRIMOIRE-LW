@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useBestRatedBooks } from '../../../lib/customHooks';
 import BookItem from '../BookItem/BookItem';
 import styles from './BestRatedBooks.module.css';
 
-function BestRatedBooks() {
-  const { bestRatedBooks } = useBestRatedBooks();
+function BestRatedBooks({ refreshTrigger }) {
+  const { bestRatedBooks, refreshBestRatedBooks } = useBestRatedBooks();
+
+  useEffect(() => {
+    refreshBestRatedBooks();
+  }, [refreshTrigger]);
 
   const bestRatedBooksContent = bestRatedBooks.length > 0 ? (
     bestRatedBooks.map((elt) => <BookItem key={`book-${elt.id}`} book={elt} size={3} />)
